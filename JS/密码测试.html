@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://js-003/pwd.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>密码测试</title>
+	<style type="text/css">
+		body{
+			font-family: 'Microsoft Yahei';
+			font-size:18px;
+		}
+
+		.box{
+			width:500px;
+			overflow: hidden;
+			margin:auto;
+			background-color: #efefef;
+			padding: 1em;
+		}
+
+		ul,li{
+			width:100%;
+			list-style:none;
+		}
+
+		li{
+			padding: 1em;
+		}
+
+		.today{
+			background-color: pink;
+		}
+	</style>
+<script type="text/javascript">
+	function coder(datestr){
+		//1.给定参数生成时间，无参数默认今天
+		//2.根据1生成的时间的年月日拆成3个2位数。如：16 04 20
+		//3.根据2生成的3个2位数调换位置，如16 04 20 -> 61 40 02
+		//4.按照日+年的第一位+月+年的第二位，如：61 40 02 ->026401
+		//5.根据当天日期的单双号对4的结果进行分组。单号每3位一组，双号是2位。如2016/4/20日，是双号，4的结果2个一组重新分组，如026401->02 64 01
+		//6.将5的结果的每个元素转为16进制，如02 64 01 -> 2 40 1 ->2401
+		//第一步
+		var _now;
+		if(datestr){
+			_now=new Date(datestr);
+		}else{
+			_now=new Date();
+		}
+		//第二步
+		var _year=_now.getFullYear().toString().substr(2);
+		var _month=_now.getMonth()>=10?(_now.getMonth()+1).toString():('0'+(_now.getMonth()+1));
+		var _day=_now.getDate()>=10?_now.getDate().toString():('0'+_now.getDate());
+		//第三步
+		_year=_year.split('').reverse();
+		_month=_month.split('').reverse();
+		_day=_day.split('').reverse();
+		//第四步
+		var _str=_day.concat([_year[0]]).concat(_month).concat(_year[1]).join('');
+		//第五步
+		var _devider=2+(_now.getDate()%2);
+		var _reg=new RegExp("\\d{"+_devider+"}",'g');
+
+		var _mat=_str.match(_reg);
+		//第六步
+		var _rst=[];
+		for(var i=0;i<_mat.length;i++){
+			var _cur=_mat[i];
+			var _int=Number(_cur).toString(16);
+			_rst.push(_int);
+		}
+		return _rst.join("");
+	}
+
+</script></head>
+
+<body>
+	<div class="box">
+		<h1>今天的密码是：3e5e1</h1>
+		<div id="container"><ul><li>日期2019/4/1:  6d191</li><li>日期2019/4/2:  145e1</li><li>日期2019/4/3:  135191</li><li>日期2019/4/4:  285e1</li><li>日期2019/4/5:  1fd191</li><li>日期2019/4/6:  3c5e1</li><li>日期2019/4/7:  2c5191</li><li>日期2019/4/8:  505e1</li><li>日期2019/4/9:  38d191</li><li>日期2019/4/10:  15e1</li><li>日期2019/4/11:  77191</li><li>日期2019/4/12:  155e1</li><li>日期2019/4/13:  13f191</li><li>日期2019/4/14:  295e1</li><li>日期2019/4/15:  207191</li><li>日期2019/4/16:  3d5e1</li><li>日期2019/4/17:  2cf191</li><li>日期2019/4/18:  515e1</li><li>日期2019/4/19:  397191</li><li>日期2019/4/20:  25e1</li><li>日期2019/4/21:  81191</li><li>日期2019/4/22:  165e1</li><li>日期2019/4/23:  149191</li><li>日期2019/4/24:  2a5e1</li><li>日期2019/4/25:  211191</li><li class="today">日期2019/4/26:  3e5e1</li><li>日期2019/4/27:  2d9191</li><li>日期2019/4/28:  525e1</li><li>日期2019/4/29:  3a1191</li><li>日期2019/4/30:  35e1</li></ul></div>
+	</div>
+	
+
+<script type="text/javascript">
+	var _now=new Date(); 
+	var _year=_now.getFullYear();
+	var _month=_now.getMonth()+1;
+	var _day=_now.getDate();
+	var _tmp=new Date(_year,_month,0);
+	var _count=_tmp.getDate();
+	var _str=[];
+	_str.push("<ul>");
+	for(var i=0;i<_count;i++){
+		_str.push("<li"+(i===(_day-1)?" class='today'":"")+">");
+		var _d=_year+"/"+_month+"/"+(i+1);		
+		_str.push("日期"+_d+":  ");
+		_str.push(coder(_d));
+		_str.push("</li>");
+	}
+	_str.push("</ul>");
+	document.getElementById('container').innerHTML=_str.join("");
+
+	var _today=coder();
+	var _dom=document.getElementsByTagName('h1')[0];
+	_dom.innerHTML="今天的密码是："+_today;
+</script>
+</body></html>

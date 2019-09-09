@@ -1,0 +1,11 @@
+root 9876 
+15011421722 1234
+13426121944 123456 111111
+13269671866 111111
+
+
+huanche-db-test  172.16.100.150:27017   Database:huanche-db-test   User Name:huanche   Password:PHuance01
+huanche-db-test  172.16.100.150:27017   Database:huanche-db-staging  User Name:huanche   Password:PHuance01
+huanche-db-test  172.16.200.152:27017   Database:huanche-db   User Name:huanche   Password:PHuance01
+
+https://s-2.51huanche.com  ∞Ô∞Ô2 ÷≥µ
